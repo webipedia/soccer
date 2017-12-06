@@ -1,0 +1,618 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "Servicio REST de fútbol",
+		"description": "Servicio REST de fútbol",
+		"termsOfService": "",
+		"contact": {
+			"name": "Jota",
+			"email": "webipedia.hd@gmail.com",
+			"url": "http://webipedia.es"
+		}
+	},
+	"host": "localhost",
+	"basePath": "/rest/apis/soccer",
+	"tags": [
+		{
+			"name": "teams",
+			"description": "Equipos"
+		},
+		{
+			"name": "players",
+			"description": "Jugadores"
+		},
+		{
+			"name": "stadium",
+			"description": "Estadio"
+		}
+	],
+	"schemes": [
+		"http",
+		"https"
+	],
+	"consumes": ["application/json"],
+	"produces": ["application/json"],
+	"paths": {
+		"/teams": {
+			"get": {
+				"tags": ["teams"],
+				"summary": "Equipos",
+				"description": "Devuelve el listado de equipos",
+				"operationId": "Soccer.getTeams",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Equipos listados correctamente",
+						"schema": {
+							"$ref": "#/definitions/TeamList"
+						}
+					},
+					"400": {
+						"description": "Parametros de Entrada Invalidos",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"401": {
+						"description": "Partner No Autorizado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"403": {
+						"description": "Partner No Autenticado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"404": {
+						"description": "Operacion No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"503": {
+						"description": "Servicio No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				},
+				"security": [{
+					"Soccer_OAuth": ["listar"]
+				}]
+			},
+			"post": {
+				"tags": ["teams"],
+				"summary": "Nuevo equipo",
+				"description": "Da de alta un equipo",
+				"operationId": "Soccer.createTeam",
+				"consumes": ["application/json"],
+				"produces": ["application/json"],
+				"parameters": [{
+					"name": "Team",
+					"in": "body",
+					"description": "Equipo",
+					"schema": {
+						"$ref": "#/definitions/Team"
+					}
+				}],
+				"responses": {
+					"201": {
+						"description": "Equipo creado correctamente",
+						"schema": {
+							"$ref": "#/definitions/Team"
+						}
+					},
+					"400": {
+						"description": "Parametros de Entrada Invalidos",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"401": {
+						"description": "Partner No Autorizado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"403": {
+						"description": "Partner No Autenticado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"404": {
+						"description": "Operacion No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"503": {
+						"description": "Servicio No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				},
+				"security": [{
+					"Soccer_OAuth": ["crear"]
+				}]
+			}
+		},
+		"/teams/{id}": {
+			"get": {
+				"tags": ["teams"],
+				"summary": "Obtener equipo",
+				"description": "Devuelve el equipo cuyo identificador coincida con id",
+				"operationId": "Soccer.getTeam",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identificador de equipo",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Equipo obtenido correctamente",
+						"schema": {
+							"$ref": "#/definitions/Team"
+						}
+					},
+					"400": {
+						"description": "Parametros de Entrada Invalidos",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"401": {
+						"description": "Partner No Autorizado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"403": {
+						"description": "Partner No Autenticado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"404": {
+						"description": "Operacion No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"503": {
+						"description": "Servicio No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				},
+				"security": [{
+					"Soccer_OAuth": ["listar"]
+				}]
+			}
+		},
+		"/teams/{id}/stadium": {		
+			"get": {
+				"tags": ["teams","stadium"],
+				"summary": "Obtener estadio",
+				"description": "Devuelve el estadio del equipo cuyo identificador coincida con id",
+				"operationId": "Soccer.getStadium",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identificador de equipo",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Estadio obtenido correctamente",
+						"schema": {
+							"$ref": "#/definitions/Stadium"
+						}
+					},
+					"400": {
+						"description": "Parametros de Entrada Invalidos",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"401": {
+						"description": "Partner No Autorizado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"403": {
+						"description": "Partner No Autenticado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"404": {
+						"description": "Operacion No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"503": {
+						"description": "Servicio No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				},
+				"security": [{
+					"Soccer_OAuth": ["listar"]
+				}]
+			},
+			"post": {
+				"tags": ["teams","stadium"],
+				"summary": "Nuevo estadio",
+				"description": "Da de alta el estadio del equipo cuyo identificador coincida con id",
+				"operationId": "Soccer.createStadium",
+				"consumes": ["application/json"],
+				"produces": ["application/json"],
+				"parameters": [{
+					"name": "Stadium",
+					"in": "body",
+					"description": "Estadio",
+					"schema": {
+						"$ref": "#/definitions/Stadium"
+					}
+				}],
+				"responses": {
+					"201": {
+						"description": "Estadio creado correctamente",
+						"schema": {
+							"$ref": "#/definitions/Stadium"
+						}
+					},
+					"400": {
+						"description": "Parametros de Entrada Invalidos",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"401": {
+						"description": "Partner No Autorizado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"403": {
+						"description": "Partner No Autenticado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"404": {
+						"description": "Operacion No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"503": {
+						"description": "Servicio No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				},
+				"security": [{
+					"Soccer_OAuth": ["crear"]
+				}]
+			}
+		},
+		"/teams/{id}/players": {		
+			"get": {
+				"tags": ["teams","players"],
+				"summary": "Obtener jugadores",
+				"description": "Devuelve los jugadores del equipo cuyo identificador coincida con id",
+				"operationId": "Soccer.getPlayers",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identificador de equipo",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Jugadores listados correctamente",
+						"schema": {
+							"$ref": "#/definitions/PlayerList"
+						}
+					},
+					"400": {
+						"description": "Parametros de Entrada Invalidos",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"401": {
+						"description": "Partner No Autorizado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"403": {
+						"description": "Partner No Autenticado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"404": {
+						"description": "Operacion No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"503": {
+						"description": "Servicio No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				},
+				"security": [{
+					"Soccer_OAuth": ["listar"]
+				}]
+			},
+			"post": {
+				"tags": ["teams","players"],
+				"summary": "Nuevo jugador",
+				"description": "Da de alta un jugador perteneciente al equipo cuyo identificador coincida con id",
+				"operationId": "Soccer.createPlayer",
+				"consumes": ["application/json"],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identificador de equipo",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "Player",
+						"in": "body",
+						"description": "Jugador",
+						"schema": { 
+							"$ref": "#/definitions/Player"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Jugador creado correctamente",
+						"schema": {
+							"$ref": "#/definitions/Player"
+						}
+					},
+					"400": {
+						"description": "Parametros de Entrada Invalidos",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"401": {
+						"description": "Partner No Autorizado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"403": {
+						"description": "Partner No Autenticado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"404": {
+						"description": "Operacion No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"503": {
+						"description": "Servicio No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				},
+				"security": [{
+					"Soccer_OAuth": ["crear"]
+				}]
+			}
+		},
+		"/teams/{id}/players/{id_player}": {		
+			"get": {
+				"tags": ["teams","players"],
+				"summary": "Obtener jugador",
+				"description": "Devuelve los datos del jugador que juegue en un equipo cuyo identificador coincida con id y con un identificador de jugador que coincida con id_player",
+				"operationId": "Soccer.getPlayer",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identificador de equipo",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "id_player",
+						"in": "path",
+						"description": "Identificador de jugador",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Jugador listado correctamente",
+						"schema": {
+							"$ref": "#/definitions/Player"
+						}
+					},
+					"400": {
+						"description": "Parametros de Entrada Invalidos",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"401": {
+						"description": "Partner No Autorizado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"403": {
+						"description": "Partner No Autenticado",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"404": {
+						"description": "Operacion No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"503": {
+						"description": "Servicio No Disponible",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				},
+				"security": [{
+					"Soccer_OAuth": ["listar"]
+				}]
+			}
+		}
+	},
+	"securityDefinitions": {
+		"Soccer_OAuth": {
+			"type": "oauth2",
+			"description": "Autenticacion JWT/JWS en Peticiones REST",
+			"flow": "application",
+			"tokenUrl": "http://localhost:8700/rest/oauth/token",
+			"scopes": {
+				"listar": "Rol con Permisos para lista recursos",
+				"crear": "Rol con Permisos para crear recursos"
+			}
+		}
+	},
+	"definitions": {
+		"TeamList" : {
+			"type" : "array",
+			"items" : {
+				"$ref" : "#/definitions/Team"
+			}
+		},
+		"Team": {
+			"type": "object",
+			"required": ["Name","FoundationYear","RankingPosition"],
+			"properties": {
+				"Name": {
+					"type": "string",
+					"description": "Nombre"
+				},
+				"FoundationYear": {
+					"type": "string",
+					"description": "Año de fundación"
+				},
+				"RankingPosition": {
+					"type": "string",
+					"description": "Posición"
+				}
+			}
+		},
+		"Stadium": {
+			"type": "object",
+			"required": ["Capacity","Name","City"],
+			"properties": {
+				"Capacity": {
+					"type": "string",
+					"description": "Capacidad"
+				},
+				"Name": {
+					"type": "string",
+					"description": "Nombre"
+				},
+				"City": {
+					"type": "string",
+					"description": "Ciudad"
+				}
+			}
+		},
+		"PlayerList" : {
+			"type" : "array",
+			"items" : {
+				"$ref" : "#/definitions/Player"
+			}
+		},
+		"Player": {
+			"type": "object",
+			"required": ["Name","Goals","Country","Age"],
+			"properties": {
+				"Name": {
+					"type": "string",
+					"description": "Nombre"
+				},
+				"Goals": {
+					"type": "string",
+					"description": "Goles"
+				},
+				"Country": {
+					"type": "string",
+					"description": "País"
+				},
+				"Age": {
+					"type": "string",
+					"description": "Edad"
+				}
+			}
+		},
+		"Error": {
+			"type": "object",
+			"description": "Estructura de Error",
+			"required": ["codigo", "descripcion", "tipo"],
+			"properties": {
+				"codigo": {
+					"type": "string",
+					"description": "Código único que identifica al error producido."
+				},
+				"descripcion": {
+					"type": "string",
+					"description": "Descripción de error producido."
+				},
+				"causa": {
+					"type": "string",
+					"description": "Causa u origen de error."
+				},
+				"accion": {
+					"type": "string",
+					"description": "Acción recomendada ante el error."
+				},
+				"tipo": {
+					"type": "string",
+					"description": "Tipo de Error. Especifica si el error tiene caracter TECNICO o FUNCIONAL."
+				}
+			}
+		}
+	}
+}
