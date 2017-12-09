@@ -303,7 +303,7 @@
            <p>Autor: ${author} @ ${website}</p>
        </div> 
        <div data-ng-app="mainApp" data-ng-controller="RESTController">
-       		Probando GitHub y Jenkins...
+       		Probando GitHub y Jenkins... (me falta hibernate)
        		<h2>Teams</h2>
        		<input type="button" data-ng-click="GetTeams()" value="GET Teams" /><br />
 			<input type="text" data-ng-model="txtTeamGet" /> <input type="button" data-ng-click="GetTeam()" value="GET Team" /><br />		
